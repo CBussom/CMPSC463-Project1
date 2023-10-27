@@ -23,10 +23,29 @@ The goal of this project is to implement the TimSort sorting algorithm and evalu
 
 TimSort is a hybrid stable sorting algorithm derived from merge sort and insertion sort. It takes advantage of already sorted subsequences in the input data and works as follows:
 
-1. The input array is divided into "runs" which are sorted subsequences. These runs are identified by scanning the array from left to right.
-2. The size of the runs varies dynamically based on the order of the input data. Longer runs for ordered data and shorter runs for random data.
-3. After identifying the runs, they are merged using an optimized form of merge sort. TimSort uses a "galloping" merge process where it iterates through the runs and finds the next lowest element to merge quickly.
-4. If the runs are too small, TimSort will use insertion sort to increase efficiency.
+- The input array is divided into "runs" which are sorted subsequences. These runs are identified by scanning the array from left to right.
+
+- The size of the runs varies dynamically based on the order of the input data. Longer runs for ordered data and shorter runs for random data. 
+
+- After identifying the runs, they are merged using an optimized form of merge sort:
+
+  - Merge sort first divides the array recursively into halves until small sublists are obtained.
+  
+  - These sublists are merged in a bottom-up manner. Adjacent sublists are merged into sorted runs.
+  
+  - At each step, one element from each sublist is compared and the smaller one is taken for merging to ensure the result is sorted.
+  
+- If the runs are too small, TimSort will use insertion sort to increase efficiency:
+
+  - Insertion sort iterates through the array, taking each element and inserting it into the correct position in the already sorted sublist to its left.
+  
+  - So it builds the sorted array one element at a time.
+  
+  - It is very efficient for small list sizes.
+
+- The merging and insertion sort steps are repeated until the full array is sorted.
+
+So, TimSort has the advantage from both merge sort's divide-and-conquer approach and insertion sort's efficiency on small lists.
 
 # TimSort Time Complexity
 |Case| Big O|
@@ -44,6 +63,7 @@ TimSort benchmarked against other common sorting algorithms on random and partia
 2. QuickSort: Worst case time complexity is O(N2) and average case time complexity is O(N log N)
 3. HeapSort: O(n*log(n))
 4. TimSort: Average Case O(n*log(n))
+5. InsertionSort: Worst case is O(N^2) and best case is O(N)
 
 
 ## Random Data
@@ -67,7 +87,17 @@ TimSort benchmarked against other common sorting algorithms on random and partia
 |1,000,000| 3.852 (Sec) |4.29 (Sec) |2.91 (Sec)| 5.983 (Sec)|
 # Discussion
 
-From the results, we can see that TimSort performs better than the other sorting algorithms overall. On random data, TimSort is comparable to quicksort but faster than merge and heapsort. On partially sorted data, TimSort exploits the existing order and is much faster than all the other algorithms. The advantage increases with larger input sizes. This demonstrates that TimSort's hybrid approach works well to improve sorting times by taking advantage of ordered subsequences in real-world data. The results match the expected theoretical complexity analysis of these algorithms. In conclusion, TimSort serves as an excellent example of how combining algorithmic concepts can practically improve performance.
+From the results, we can see that TimSort performs better than the other sorting algorithms overall. On random data, TimSort is comparable to quicksort but faster than merge and heapsort. On partially sorted data, TimSort uses the existing order and is much faster than all the other algorithms. TimSort has a bigger advantage with larger input sizes. 
+
+This shows that TimSort's hybrid approach works well to improve sorting times by taking advantage of ordered subsequences in real-world data. The results match the expected theoretical complexity analysis of these algorithms:
+
+- TimSort average case: O(n log n) 
+- Quicksort average case: O(n log n)
+- Mergesort: O(n log n)
+- Heapsort: O(n log n)
+
+In conclusion, TimSort is an excellent example of how combining algorithmic concepts can practically improve performance. The theoretical analysis shows TimSort, Mergesort, Heapsort, and Quicksort have similar asymptotic complexities. However, TimSort performs better than the other algorithms in practice, especially on partially sorted data, due to its optimizations.
+
 
 ## Acknowledgments
 The TimSort algorithm was developed by Tim Peters for the Python programming language. This implementation is based on that original work.
