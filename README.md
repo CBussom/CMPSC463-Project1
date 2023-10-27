@@ -5,7 +5,7 @@ TimSort is a hybrid sorting algorithm derived from merge sort and insertion sort
 
 This repository contains an implementation of the TimSort algorithm in Python, along with test cases to verify its correctness and performance.
 
-## TimSort Algorithm
+## TimSort Algorithm (explaining the code)
 The main components of the TimSort algorithm in this implementation are as follows:
 
 - `calcMinRun(n)`: Calculates the minimum run length for a given input size, ensuring that the ratio `len(array) / minrun` is less than or equal to a power of 2. This helps in determining the run length for sorting.
